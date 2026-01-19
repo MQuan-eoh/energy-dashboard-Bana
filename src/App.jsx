@@ -205,7 +205,14 @@ function App() {
         setCurrentHistory((prev) => updateChartData(prev, i1, i2, i3));
         setPowerHistory((prev) => updateChartData(prev, p1, p2, p3));
         setCosPhiHistory((prev) => updateChartData(prev, pf1, pf2, pf3));
-        setThdHistory((prev) => updateChartData(prev, thdI1, thdI2, thdI3));
+        setThdHistory((prev) => {
+          const newData = [...prev, { 
+            time, 
+            thdI1, thdI2, thdI3, 
+            thdU1: thdU1N, thdU2: thdU2N, thdU3: thdU3N 
+          }];
+          return newData.slice(-MAX_DATA_POINTS);
+        });
       }
     };
 
@@ -476,12 +483,17 @@ function App() {
             id="thdChart"
             data={thdHistory}
             lines={[
-              { key: "value1", color: "#2962FF", name: "THD1" },
-              { key: "value2", color: "#00B0FF", name: "THD2" },
-              { key: "value3", color: "#00E5FF", name: "THD3" },
+              // THD I (Current) - Red/Orange/Yellow tones
+              { key: "thdI1", color: "#FF5252", name: "THD I1" },
+              { key: "thdI2", color: "#FF9800", name: "THD I2" },
+              { key: "thdI3", color: "#FFEB3B", name: "THD I3" },
+              // THD U (Voltage) - Blue/Cyan/Green tones
+              { key: "thdU1", color: "#2962FF", name: "THD U1" },
+              { key: "thdU2", color: "#00BCD4", name: "THD U2" },
+              { key: "thdU3", color: "#4CAF50", name: "THD U3" },
             ]}
             unit="%"
-            height="150px"
+            height="180px"
           />
 
           {/* THD Values - 2 rows: U row and I row, each with 3 phases */}

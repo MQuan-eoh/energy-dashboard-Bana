@@ -273,9 +273,9 @@ function App() {
             id="voltageChart"
             data={voltageHistory}
             lines={[
-              { key: "value1", color: "#FFD700", name: "U12" },
-              { key: "value2", color: "#FF9100", name: "U23" },
-              { key: "value3", color: "#FFFF00", name: "U31" },
+              { key: "value1", color: "#FF5252", name: "U12" },
+              { key: "value2", color: "#4CAF50", name: "U23" },
+              { key: "value3", color: "#2196F3", name: "U31" },
             ]}
             unit="V"
             height="150px"
@@ -444,9 +444,9 @@ function App() {
             id="cosPhiChart"
             data={cosPhiHistory}
             lines={[
-              { key: "value1", color: "#FFD700", name: "PF1" },
-              { key: "value2", color: "#FF9100", name: "PF2" },
-              { key: "value3", color: "#FFFF00", name: "PF3" },
+              { key: "value1", color: "#E040FB", name: "PF1" },
+              { key: "value2", color: "#7C4DFF", name: "PF2" },
+              { key: "value3", color: "#FF4081", name: "PF3" },
             ]}
             unit=""
             height="150px"
@@ -468,38 +468,41 @@ function App() {
             id="thdChart"
             data={thdHistory}
             lines={[
-              { key: "value1", color: "#2962FF", name: "THD12" },
-              { key: "value2", color: "#00B0FF", name: "THD23" },
-              { key: "value3", color: "#00E5FF", name: "THD31" },
+              { key: "value1", color: "#2962FF", name: "THD1" },
+              { key: "value2", color: "#00B0FF", name: "THD2" },
+              { key: "value3", color: "#00E5FF", name: "THD3" },
             ]}
             unit="%"
             height="150px"
           />
 
-          <div className="thd-grid">
-            <div className="thd-item">
-              <span>THD I12</span>
-              <span>{data.thd.details.thdI1.toFixed(2)}%</span>
+          {/* THD Values - 2 rows: U row and I row, each with 3 phases */}
+          <div className="max-values-container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginTop: '1rem' }}>
+            {/* Row 1: THD U (Voltage) - 3 phases */}
+            <div className="max-item">
+              <span className="max-label">THD U1</span>
+              <span className="max-value">{data.thd.details.thdU1N.toFixed(2)}%</span>
             </div>
-            <div className="thd-item">
-              <span>THD I23</span>
-              <span>{data.thd.details.thdI2.toFixed(2)}%</span>
+            <div className="max-item">
+              <span className="max-label">THD U2</span>
+              <span className="max-value">{data.thd.details.thdU2N.toFixed(2)}%</span>
             </div>
-            <div className="thd-item">
-              <span>THD I31</span>
-              <span>{data.thd.details.thdI3.toFixed(2)}%</span>
+            <div className="max-item">
+              <span className="max-label">THD U3</span>
+              <span className="max-value">{data.thd.details.thdU3N.toFixed(2)}%</span>
             </div>
-            <div className="thd-item">
-              <span>THD U12</span>
-              <span>{data.thd.details.thdU1N.toFixed(2)}%</span>
+            {/* Row 2: THD I (Current) - 3 phases */}
+            <div className="max-item">
+              <span className="max-label">THD I1</span>
+              <span className="max-value">{data.thd.details.thdI1.toFixed(2)}%</span>
             </div>
-            <div className="thd-item">
-              <span>THD U23</span>
-              <span>{data.thd.details.thdU2N.toFixed(2)}%</span>
+            <div className="max-item">
+              <span className="max-label">THD I2</span>
+              <span className="max-value">{data.thd.details.thdI2.toFixed(2)}%</span>
             </div>
-            <div className="thd-item">
-              <span>THD U31</span>
-              <span>{data.thd.details.thdU3N.toFixed(2)}%</span>
+            <div className="max-item">
+              <span className="max-label">THD I3</span>
+              <span className="max-value">{data.thd.details.thdI3.toFixed(2)}%</span>
             </div>
           </div>
         </div>

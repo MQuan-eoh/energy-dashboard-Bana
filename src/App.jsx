@@ -226,7 +226,7 @@ function App() {
       minRealtimeConfigsCount: 0,
       minHistoryConfigsCount: 0,
       minActionsCount: 0,
-      mobileHeight: 1000,
+      mobileHeight: 1200,
       onConfiguration: (configuration) => {
         // Store the IDs in order: U1, U2, U3, I1, I2, I3, P1, P2, P3, ...
         configIdsRef.current = configuration.realtime_configs.map((c) => c.id);

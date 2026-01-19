@@ -44,6 +44,7 @@ function App() {
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
   const configIdsRef = useRef([]);
   const pendingValuesRef = useRef(null);
+  const lastChartUpdateRef = useRef(0); // Track last chart update for throttling
 
   // Initial Data State
   const [data, setData] = useState({
@@ -187,18 +188,25 @@ function App() {
         };
       });
 
-      // Update History
+      // Update History - Throttle to every 10 seconds, keep 60 points for 10 minutes
+      const now = Date.now();
+      const SAMPLE_INTERVAL_MS = 10000; // 10 seconds
+      const MAX_DATA_POINTS = 60; // 60 points × 10s = 10 minutes
 
-      const updateChartData = (prev, v1, v2, v3) => {
-        const newData = [...prev, { time, value1: v1, value2: v2, value3: v3 }];
-        return newData.slice(-20); // Keep last 20 points
-      };
+      if (now - lastChartUpdateRef.current >= SAMPLE_INTERVAL_MS) {
+        lastChartUpdateRef.current = now;
+        
+        const updateChartData = (prev, v1, v2, v3) => {
+          const newData = [...prev, { time, value1: v1, value2: v2, value3: v3 }];
+          return newData.slice(-MAX_DATA_POINTS);
+        };
 
-      setVoltageHistory((prev) => updateChartData(prev, u1, u2, u3));
-      setCurrentHistory((prev) => updateChartData(prev, i1, i2, i3));
-      setPowerHistory((prev) => updateChartData(prev, p1, p2, p3));
-      setCosPhiHistory((prev) => updateChartData(prev, pf1, pf2, pf3));
-      setThdHistory((prev) => updateChartData(prev, thdI1, thdI2, thdI3));
+        setVoltageHistory((prev) => updateChartData(prev, u1, u2, u3));
+        setCurrentHistory((prev) => updateChartData(prev, i1, i2, i3));
+        setPowerHistory((prev) => updateChartData(prev, p1, p2, p3));
+        setCosPhiHistory((prev) => updateChartData(prev, pf1, pf2, pf3));
+        setThdHistory((prev) => updateChartData(prev, thdI1, thdI2, thdI3));
+      }
     };
 
     eraWidget.init({

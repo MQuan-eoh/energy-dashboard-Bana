@@ -77,7 +77,7 @@ function App() {
       unit: "kW",
     },
     thd: {
-      main: 0,
+
       details: {
         thdI1: 0,
         thdI2: 0,
@@ -162,7 +162,7 @@ function App() {
       const pMax2 = getValue(28);
       const pMax3 = getValue(29);
 
-      const thdMain = Math.max(thdI1, thdI2, thdI3);
+
       const time = new Date().toLocaleTimeString([], { hour12: false });
 
       // Update Data State
@@ -172,7 +172,7 @@ function App() {
           current: { i1, i2, i3, iMax1, iMax2, iMax3, unit: "A" },
           power: { p1, p2, p3, pMax1, pMax2, pMax3, total: pTotal, unit: "kW" },
           thd: {
-            main: thdMain,
+
             details: { thdI1, thdI2, thdI3, thdU1N, thdU2N, thdU3N },
           },
           extra: {
@@ -479,15 +479,12 @@ function App() {
         </div>
 
         {/* THD */}
-        <div className="glass-panel" style={{ gridColumn: "span 1" }}>
+        <div className="glass-panel" style={{ gridColumn: "span 1", display: "flex", flexDirection: "column" }}>
           <div className="panel-header">
             <span className="panel-title">THD (Total Harmonic Distortion)</span>
             <span className="icon">📊</span>
           </div>
-          <div>
-            <span className="panel-value">{data.thd.main.toFixed(2)}</span>
-            <span className="panel-unit">%</span>
-          </div>
+
 
           <EnergyChart
             id="thdChart"
@@ -503,7 +500,7 @@ function App() {
               { key: "thdU3", color: "#4CAF50", name: "THD U3" },
             ]}
             unit="%"
-            height="180px"
+            height="240px"
           />
 
           {/* THD Values - 2 rows: U row and I row, each with 3 phases */}
@@ -513,7 +510,7 @@ function App() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               gap: "0.5rem",
-              marginTop: "1rem",
+              marginTop: "auto",
             }}
           >
             {/* Row 1: THD U (Voltage) - 3 phases */}

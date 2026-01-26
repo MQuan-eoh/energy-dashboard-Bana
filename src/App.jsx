@@ -486,31 +486,15 @@ function App() {
           </div>
 
 
-          <EnergyChart
-            id="thdChart"
-            data={thdHistory}
-            lines={[
-              // THD I (Current) - Red/Orange/Yellow tones
-              { key: "thdI1", color: "#FF5252", name: "THD I1" },
-              { key: "thdI2", color: "#FF9800", name: "THD I2" },
-              { key: "thdI3", color: "#FFEB3B", name: "THD I3" },
-              // THD U (Voltage) - Blue/Cyan/Green tones
-              { key: "thdU1", color: "#2962FF", name: "THD U1" },
-              { key: "thdU2", color: "#00BCD4", name: "THD U2" },
-              { key: "thdU3", color: "#4CAF50", name: "THD U3" },
-            ]}
-            unit="%"
-            height="240px"
-          />
-
-          {/* THD Values - 2 rows: U row and I row, each with 3 phases */}
+          {/* THD Values - Moved above chart as requested */}
           <div
             className="max-values-container"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               gap: "0.5rem",
-              marginTop: "auto",
+              marginBottom: "1rem",
+              marginTop: "0",
             }}
           >
             {/* Row 1: THD U (Voltage) - 3 phases */}
@@ -552,6 +536,23 @@ function App() {
               </span>
             </div>
           </div>
+
+          <EnergyChart
+            id="thdChart"
+            data={thdHistory}
+            lines={[
+              // THD I (Current) - Red/Orange/Yellow tones
+              { key: "thdI1", color: "#FF5252", name: "THD I1" },
+              { key: "thdI2", color: "#FF9800", name: "THD I2" },
+              { key: "thdI3", color: "#FFEB3B", name: "THD I3" },
+              // THD U (Voltage) - Blue/Cyan/Green tones
+              { key: "thdU1", color: "#2962FF", name: "THD U1" },
+              { key: "thdU2", color: "#00BCD4", name: "THD U2" },
+              { key: "thdU3", color: "#4CAF50", name: "THD U3" },
+            ]}
+            unit="%"
+            height="240px"
+          />
         </div>
       </div>
       <ThemeSettings />

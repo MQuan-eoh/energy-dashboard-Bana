@@ -50,7 +50,7 @@ const EnergyChart = ({
             dataKey="time"
             stroke="#ffffffff"
             fontSize={12}
-            tickLine={false}
+            tick={false}
             axisLine={false}
           />
           <YAxis
